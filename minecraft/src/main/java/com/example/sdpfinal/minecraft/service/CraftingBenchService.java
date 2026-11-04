@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 public class CraftingBenchService {
 
     public EquipmentItem craft(String name, int durability, String type) {
-        System.out.println("[CraftingBenchService] Сковано: " + name);
+        System.out.println("[CraftingBenchService] Crafted item: " + name);
         return new EquipmentItem(name, durability, type);
     }
 }

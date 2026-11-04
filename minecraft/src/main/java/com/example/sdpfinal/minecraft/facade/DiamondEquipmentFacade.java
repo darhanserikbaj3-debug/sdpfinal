@@ -16,10 +16,6 @@ public class DiamondEquipmentFacade {
     private final CraftingBenchService craftingBenchService;
     private final NotificationService notificationService;
 
-    private static final int DIAMONDS_FOR_ARMOR = 24;
-    private static final int DIAMONDS_FOR_TOOLS = 11;
-    private static final int DIAMOND_DURABILITY = 1561;
-
     public DiamondEquipmentFacade(InventoryService inventoryService,
                                  CraftingBenchService craftingBenchService,
                                  NotificationService notificationService) {
@@ -29,30 +25,25 @@ public class DiamondEquipmentFacade {
     }
 
     public List<EquipmentItem> craftFullDiamondSet() {
-        int totalDiamondsNeeded = DIAMONDS_FOR_ARMOR + DIAMONDS_FOR_TOOLS;
+        inventoryService.hasEnoughDiamonds(35);
+        inventoryService.deductDiamonds(35);
 
-        if (!inventoryService.hasEnoughDiamonds(totalDiamondsNeeded)) {
-            notificationService.notifyPlayer("Not enough diamonds in inventory!");
-            return new ArrayList<>();
-        }
+        List<EquipmentItem> items = new ArrayList<>();
 
-        inventoryService.deductDiamonds(totalDiamondsNeeded);
-        List<EquipmentItem> fullSet = new ArrayList<>();
+        // Armor
+        items.add(craftingBenchService.craft("Diamond Helmet", 1561, "ARMOR"));
+        items.add(craftingBenchService.craft("Diamond Chestplate", 1561, "ARMOR"));
+        items.add(craftingBenchService.craft("Diamond Leggings", 1561, "ARMOR"));
+        items.add(craftingBenchService.craft("Diamond Boots", 1561, "ARMOR"));
 
-        System.out.println("\n=== Crafting Diamond Armor Set ===");
-        fullSet.add(craftingBenchService.craft("Diamond Helmet", DIAMOND_DURABILITY, "ARMOR"));
-        fullSet.add(craftingBenchService.craft("Diamond Chestplate", DIAMOND_DURABILITY, "ARMOR"));
-        fullSet.add(craftingBenchService.craft("Diamond Leggings", DIAMOND_DURABILITY, "ARMOR"));
-        fullSet.add(craftingBenchService.craft("Diamond Boots", DIAMOND_DURABILITY, "ARMOR"));
+        // Tools
+        items.add(craftingBenchService.craft("Diamond Sword", 1561, "TOOL"));
+        items.add(craftingBenchService.craft("Diamond Pickaxe", 1561, "TOOL"));
+        items.add(craftingBenchService.craft("Diamond Axe", 1561, "TOOL"));
+        items.add(craftingBenchService.craft("Diamond Shovel", 1561, "TOOL"));
+        items.add(craftingBenchService.craft("Diamond Hoe", 1561, "TOOL"));
 
-        System.out.println("\n=== Crafting Diamond Tool Set ===");
-        fullSet.add(craftingBenchService.craft("Diamond Sword", DIAMOND_DURABILITY, "TOOL"));
-        fullSet.add(craftingBenchService.craft("Diamond Pickaxe", DIAMOND_DURABILITY, "TOOL"));
-        fullSet.add(craftingBenchService.craft("Diamond Axe", DIAMOND_DURABILITY, "TOOL"));
-        fullSet.add(craftingBenchService.craft("Diamond Shovel", DIAMOND_DURABILITY, "TOOL"));
-        fullSet.add(craftingBenchService.craft("Diamond Hoe", DIAMOND_DURABILITY, "TOOL"));
-
-        notificationService.notifyPlayer("Full diamond set successfully crafted!");
-        return fullSet;
+        notificationService.notifyPlayer("Full Diamond equipment set successfully crafted!");
+        return items;
     }
 }

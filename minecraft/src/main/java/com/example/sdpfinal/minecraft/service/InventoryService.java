@@ -6,11 +6,11 @@ import org.springframework.stereotype.Service;
 public class InventoryService {
 
     public boolean hasEnoughDiamonds(int required) {
-        System.out.println("[InventoryService] Проверка ресурсов: требуется " + required + " алмазов.");
-        return true; 
+        System.out.println("[InventoryService] Checking resources: Needs " + required + " diamonds.");
+        return true;
     }
 
     public void deductDiamonds(int amount) {
-        System.out.println("[InventoryService] Успешно списано " + amount + " алмазов из инвентаря.");
+        System.out.println("[InventoryService] Deducted " + amount + " diamonds from inventory.");
     }
 }

@@ -19,13 +19,16 @@ public class MinecraftApplication {
     @Bean
     public CommandLineRunner run(DiamondEquipmentFacade diamondFacade) {
         return args -> {
-            System.out.println("\n--- STARTING FACADE PATTERN DEMO ---");
+            System.out.println("\n--- TESTING DIAMOND FACADE PATTERN ---");
             
-            // Single clean call to the Facade
+            // Вызываем метод фасада для крафта полного сета
             List<EquipmentItem> diamondSet = diamondFacade.craftFullDiamondSet();
 
             System.out.println("\n--- RESULTING INVENTORY (" + diamondSet.size() + " items) ---");
-            diamondSet.forEach(System.out::println);
+            for (EquipmentItem item : diamondSet) {
+                System.out.println("- " + item.getName() + " [" + item.getType() + "] (Durability: " + item.getDurability() + ")");
+            }
+            System.out.println("--------------------------------------\n");
         };
     }
 }

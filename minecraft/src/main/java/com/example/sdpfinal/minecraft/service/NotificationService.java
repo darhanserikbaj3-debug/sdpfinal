@@ -6,6 +6,6 @@ import org.springframework.stereotype.Service;
 public class NotificationService {
 
     public void notifyPlayer(String message) {
-        System.out.println("[NotificationService] Игроку: " + message);
+        System.out.println("[NotificationService] To player: " + message);
     }
 }
