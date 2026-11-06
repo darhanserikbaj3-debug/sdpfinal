@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Minecraft Equipment Crafter</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1e1e24;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 { margin-bottom: 25px; color: #55ff55; }
+
+        .button-grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background-color: #2b2b36;
+            border: 2px solid #3f3f54;
+            border-radius: 12px;
+            padding: 20px;
+            width: 200px;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #55ff55;
+        }
+
+        .card h3 { margin: 10px 0 5px 0; }
+        .card p { font-size: 13px; color: #aaa; margin: 0; }
+
+        .results-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #2b2b36;
+            padding: 20px;
+            border-radius: 12px;
+            display: none;
+        }
+
+        .summary-box {
+            background: #383848;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .summary-box span { font-weight: bold; color: #ffaa00; }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+        }
+
+        .item-card {
+            background: #1e1e24;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #55ff55;
+            text-align: left;
+        }
+
+        .item-card.tool { border-left-color: #ff5555; }
+        .item-name { font-weight: bold; margin-bottom: 5px; }
+        .item-detail { font-size: 13px; color: #bbb; }
+    </style>
+</head>
+<body>
+
+    <h1>Minecraft Design Patterns Equipment Crafter</h1>
+
+    <div class="button-grid">
+        <div class="card" onclick="fetchEquipment('iron')">
+            <h3>Iron Set</h3>
+            <p>Pattern: <strong>BUILDER</strong></p>
+        </div>
+        <div class="card" onclick="fetchEquipment('diamond')">
+            <h3>Diamond Set</h3>
+            <p>Pattern: <strong>FACADE</strong></p>
+        </div>
+        <div class="card" onclick="fetchEquipment('netherite')">
+            <h3>Netherite Set</h3>
+            <p>Pattern: <strong>STRATEGY</strong></p>
+        </div>
+    </div>
+
+    <div id="results" class="results-container">
+        <div class="summary-box" id="summary"></div>
+        <div class="items-grid" id="itemsList"></div>
+    </div>
+
+    <script>
+        async function fetchEquipment(type) {
+            try {
+                const response = await fetch(`http://localhost:8080/api/equipment/${type}`);
+                const items = await response.json();
+
+                let totalCost = 0;
+                items.forEach(item => totalCost += (item.resourceCost || 1));
+
+                const resourceName = type === 'iron' ? 'Iron Ingots' : (type === 'diamond' ? 'Diamonds' : 'Netherite Ingots');
+                const patternName = type === 'iron' ? 'Builder' : (type === 'diamond' ? 'Facade' : 'Strategy');
+
+                document.getElementById('summary').innerHTML = `
+                    Selected Pattern: <span>${patternName}</span> | 
+                    Total Resources Spent: <span>${totalCost} ${resourceName}</span> | 
+                    Items Generated: <span>${items.length}</span>
+                `;
+
+                const itemsList = document.getElementById('itemsList');
+                itemsList.innerHTML = '';
+
+                items.forEach(item => {
+                    const isTool = item.type === 'TOOL';
+                    itemsList.innerHTML += `
+                        <div class="item-card ${isTool ? 'tool' : ''}">
+                            <div class="item-name">${item.name}</div>
+                            <div class="item-detail">Type: ${item.type}</div>
+                            <div class="item-detail">Durability: ${item.durability}</div>
+                            <div class="item-detail">Cost: ${item.resourceCost || 1} ore</div>
+                        </div>
+                    `;
+                });
+
+                document.getElementById('results').style.display = 'block';
+            } catch (err) {
+                alert('Error loading equipment data from backend!');
+            }
+        }
+    </script>
+</body>
+</html>
