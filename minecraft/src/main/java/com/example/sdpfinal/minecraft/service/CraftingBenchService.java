@@ -8,6 +8,6 @@ public class CraftingBenchService {
 
     public EquipmentItem craft(String name, int durability, String type) {
         System.out.println("[CraftingBenchService] Crafted item: " + name);
-        return new EquipmentItem(name, durability, type);
+        return new EquipmentItem(name, durability, type, 1);
     }
 }
