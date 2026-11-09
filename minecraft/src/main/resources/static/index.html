@@ -1,144 +1,333 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minecraft Equipment Crafter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #1e1e24;
-            color: #fff;
-            margin: 0;
-            padding: 20px;
-            text-align: center;
+        :root {
+            --mc-font: 'Press Start 2P', monospace;
+            --mc-bg: #121212;
+            --mc-card-bg: #1f1f1f;
+            --mc-card-border: #333333;
+            --mc-green: #388e3c;
+            --mc-green-hover: #4caf50;
+            --mc-text-white: #ffffff;
+            --mc-text-gray: #aaaaaa;
         }
 
-        h1 { margin-bottom: 25px; color: #55ff55; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-        .button-grid {
+        body {
+            background-color: var(--mc-bg);
+            color: var(--mc-text-white);
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: #000000;
+            border-bottom: 2px solid #222;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--mc-font);
+            font-size: 18px;
+            letter-spacing: 2px;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        nav a {
+            font-family: var(--mc-font);
+            color: var(--mc-text-gray);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 10px;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--mc-text-white);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 40px 20px 20px 20px;
+        }
+
+        .hero h1 {
+            font-family: var(--mc-font);
+            font-size: 22px;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 0px #000;
+        }
+
+        .hero p {
+            font-family: var(--mc-font);
+            font-size: 10px;
+            color: var(--mc-text-gray);
+            line-height: 1.6;
+        }
+
+        .cards-row {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
+            gap: 15px;
+            padding: 30px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            overflow-x: auto;
         }
 
         .card {
-            background-color: #2b2b36;
-            border: 2px solid #3f3f54;
-            border-radius: 12px;
-            padding: 20px;
+            background-color: var(--mc-card-bg);
+            border: 2px solid var(--mc-card-border);
+            border-radius: 4px;
             width: 200px;
-            cursor: pointer;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
             transition: transform 0.2s, border-color 0.2s;
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            border-color: #55ff55;
+            transform: translateY(-4px);
+            border-color: var(--mc-green);
         }
 
-        .card h3 { margin: 10px 0 5px 0; }
-        .card p { font-size: 13px; color: #aaa; margin: 0; }
-
-        .results-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #2b2b36;
-            padding: 20px;
-            border-radius: 12px;
-            display: none;
+        .card-header {
+            text-align: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
         }
 
-        .summary-box {
-            background: #383848;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 16px;
+        .card-title {
+            font-family: var(--mc-font);
+            font-size: 12px;
+            margin-bottom: 8px;
+            color: #fff;
         }
 
-        .summary-box span { font-weight: bold; color: #ffaa00; }
-
-        .items-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 15px;
+        .pattern-badge {
+            font-family: var(--mc-font);
+            font-size: 7px;
+            color: #888;
+            background: #151515;
+            padding: 4px 6px;
+            border-radius: 2px;
+            display: inline-block;
         }
 
-        .item-card {
-            background: #1e1e24;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 4px solid #55ff55;
-            text-align: left;
+        .armor-slots {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
         }
 
-        .item-card.tool { border-left-color: #ff5555; }
-        .item-name { font-weight: bold; margin-bottom: 5px; }
-        .item-detail { font-size: 13px; color: #bbb; }
+        .img-slot {
+            width: 100%;
+            height: 65px;
+            background-color: #151515;
+            border: 1px dashed #444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .img-slot img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .img-slot-placeholder {
+            font-family: var(--mc-font);
+            font-size: 7px;
+            color: #555;
+            text-transform: uppercase;
+        }
+
+        .full-illustration-slot {
+            width: 100%;
+            height: 290px;
+            background-color: #151515;
+            border: 1px dashed #444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .btn-craft {
+            font-family: var(--mc-font);
+            font-size: 9px;
+            background-color: var(--mc-green);
+            color: #fff;
+            border: none;
+            padding: 12px 5px;
+            cursor: pointer;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: auto;
+            transition: background-color 0.2s;
+        }
+
+        .btn-craft:hover {
+            background-color: var(--mc-green-hover);
+        }
     </style>
 </head>
 <body>
 
-    <h1>Minecraft Design Patterns Equipment Crafter</h1>
+    <header>
+        <div class="logo">MINECRAFT</div>
+        <nav>
+            <a href="index.html">CATALOG</a>
+            <a href="#">EQUIPMENT</a>
+            <a href="#">PATTERNS</a>
+        </nav>
+    </header>
 
-    <div class="button-grid">
-        <div class="card" onclick="fetchEquipment('iron')">
-            <h3>Iron Set</h3>
-            <p>Pattern: <strong>BUILDER</strong></p>
-        </div>
-        <div class="card" onclick="fetchEquipment('diamond')">
-            <h3>Diamond Set</h3>
-            <p>Pattern: <strong>FACADE</strong></p>
-        </div>
-        <div class="card" onclick="fetchEquipment('netherite')">
-            <h3>Netherite Set</h3>
-            <p>Pattern: <strong>STRATEGY</strong></p>
-        </div>
+    <div class="hero">
+        <h1>DISCOVER EQUIPMENT SETS</h1>
+        <p>SELECT A MATERIAL TO TRIGGER ITS DESIGN PATTERN</p>
     </div>
 
-    <div id="results" class="results-container">
-        <div class="summary-box" id="summary"></div>
-        <div class="items-grid" id="itemsList"></div>
+    <div class="cards-row">
+        <!-- 1. LEATHER -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">LEATHER</div>
+                <div class="pattern-badge">FACTORY</div>
+            </div>
+            <div class="armor-slots">
+                <div class="img-slot"><img src="leather_helmet.jpg" alt="Helmet" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">HELMET.JPG</span></div>
+                <div class="img-slot"><img src="leather_chestplate.jpg" alt="Chestplate" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">CHESTPLATE.JPG</span></div>
+                <div class="img-slot"><img src="leather_leggings.jpg" alt="Leggings" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">LEGGINGS.JPG</span></div>
+                <div class="img-slot"><img src="leather_boots.jpg" alt="Boots" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">BOOTS.JPG</span></div>
+            </div>
+            <button class="btn-craft" onclick="craftSet('leather')">CRAFT SET</button>
+        </div>
+
+        <!-- 2. CHAINMAIL -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">CHAINMAIL</div>
+                <div class="pattern-badge">DECORATOR</div>
+            </div>
+            <div class="armor-slots">
+                <div class="img-slot"><img src="chainmail_helmet.jpg" alt="Helmet" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">HELMET.JPG</span></div>
+                <div class="img-slot"><img src="chainmail_chestplate.jpg" alt="Chestplate" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">CHESTPLATE.JPG</span></div>
+                <div class="img-slot"><img src="chainmail_leggings.jpg" alt="Leggings" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">LEGGINGS.JPG</span></div>
+                <div class="img-slot"><img src="chainmail_boots.jpg" alt="Boots" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">BOOTS.JPG</span></div>
+            </div>
+            <button class="btn-craft" onclick="craftSet('chainmail')">CRAFT SET</button>
+        </div>
+
+        <!-- 3. IRON -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">IRON</div>
+                <div class="pattern-badge">BUILDER</div>
+            </div>
+            <div class="armor-slots">
+                <div class="img-slot"><img src="iron_helmet.jpg" alt="Helmet" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">HELMET.JPG</span></div>
+                <div class="img-slot"><img src="iron_chestplate.jpg" alt="Chestplate" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">CHESTPLATE.JPG</span></div>
+                <div class="img-slot"><img src="iron_leggings.jpg" alt="Leggings" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">LEGGINGS.JPG</span></div>
+                <div class="img-slot"><img src="iron_boots.jpg" alt="Boots" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">BOOTS.JPG</span></div>
+            </div>
+            <button class="btn-craft" onclick="craftSet('iron')">CRAFT SET</button>
+        </div>
+
+        <!-- 4. GOLD -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">GOLD</div>
+                <div class="pattern-badge">ADAPTER</div>
+            </div>
+            <div class="armor-slots">
+                <div class="img-slot"><img src="gold_helmet.jpg" alt="Helmet" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">HELMET.JPG</span></div>
+                <div class="img-slot"><img src="gold_chestplate.jpg" alt="Chestplate" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">CHESTPLATE.JPG</span></div>
+                <div class="img-slot"><img src="gold_leggings.jpg" alt="Leggings" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">LEGGINGS.JPG</span></div>
+                <div class="img-slot"><img src="gold_boots.jpg" alt="Boots" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">BOOTS.JPG</span></div>
+            </div>
+            <button class="btn-craft" onclick="craftSet('gold')">CRAFT SET</button>
+        </div>
+
+        <!-- 5. DIAMOND -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">DIAMOND</div>
+                <div class="pattern-badge">FACADE</div>
+            </div>
+            <div class="full-illustration-slot">
+                <svg width="100" height="140" viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M30 10 H70 V30 H60 V40 H40 V30 H30 Z" fill="#55ffff" stroke="#00aaaa" stroke-width="2"/>
+                    <path d="M20 45 H80 V80 H65 V90 H35 V80 H20 Z" fill="#55ffff" stroke="#00aaaa" stroke-width="2"/>
+                    <path d="M30 92 H70 V125 H55 V105 H45 V125 H30 Z" fill="#55ffff" stroke="#00aaaa" stroke-width="2"/>
+                    <path d="M25 110 H40 V128 H20 V120 Z M60 110 H75 V120 H80 V128 H60 Z" fill="#55ffff" stroke="#00aaaa" stroke-width="2"/>
+                </svg>
+            </div>
+            <button class="btn-craft" onclick="craftSet('diamond')">CRAFT SET</button>
+        </div>
+
+        <!-- 6. NETHERITE -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">NETHERITE</div>
+                <div class="pattern-badge">STRATEGY</div>
+            </div>
+            <div class="full-illustration-slot">
+                <svg width="100" height="140" viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M30 10 H70 V30 H60 V40 H40 V30 H30 Z" fill="#4a3b40" stroke="#2b2024" stroke-width="2"/>
+                    <path d="M20 45 H80 V80 H65 V90 H35 V80 H20 Z" fill="#4a3b40" stroke="#2b2024" stroke-width="2"/>
+                    <path d="M30 92 H70 V125 H55 V105 H45 V125 H30 Z" fill="#4a3b40" stroke="#2b2024" stroke-width="2"/>
+                    <path d="M25 110 H40 V128 H20 V120 Z M60 110 H75 V120 H80 V128 H60 Z" fill="#4a3b40" stroke="#2b2024" stroke-width="2"/>
+                </svg>
+            </div>
+            <button class="btn-craft" onclick="craftSet('netherite')">CRAFT SET</button>
+        </div>
     </div>
 
     <script>
-        async function fetchEquipment(type) {
+        async function craftSet(type) {
+            const supportedTypes = ['iron', 'diamond', 'netherite'];
+            if (!supportedTypes.includes(type)) {
+                alert('Set page for ' + type.toUpperCase() + ' is not implemented yet!');
+                return;
+            }
+
             try {
                 const response = await fetch(`http://localhost:8080/api/equipment/${type}`);
-                const items = await response.json();
-
-                let totalCost = 0;
-                items.forEach(item => totalCost += (item.resourceCost || 1));
-
-                const resourceName = type === 'iron' ? 'Iron Ingots' : (type === 'diamond' ? 'Diamonds' : 'Netherite Ingots');
-                const patternName = type === 'iron' ? 'Builder' : (type === 'diamond' ? 'Facade' : 'Strategy');
-
-                document.getElementById('summary').innerHTML = `
-                    Selected Pattern: <span>${patternName}</span> | 
-                    Total Resources Spent: <span>${totalCost} ${resourceName}</span> | 
-                    Items Generated: <span>${items.length}</span>
-                `;
-
-                const itemsList = document.getElementById('itemsList');
-                itemsList.innerHTML = '';
-
-                items.forEach(item => {
-                    const isTool = item.type === 'TOOL';
-                    itemsList.innerHTML += `
-                        <div class="item-card ${isTool ? 'tool' : ''}">
-                            <div class="item-name">${item.name}</div>
-                            <div class="item-detail">Type: ${item.type}</div>
-                            <div class="item-detail">Durability: ${item.durability}</div>
-                            <div class="item-detail">Cost: ${item.resourceCost || 1} ore</div>
-                        </div>
-                    `;
-                });
-
-                document.getElementById('results').style.display = 'block';
+                if (response.ok) {
+                    window.location.href = `${type}.html`;
+                } else {
+                    alert('Server error: Could not fetch data from backend!');
+                }
             } catch (err) {
-                alert('Error loading equipment data from backend!');
+                alert('SERVER IS DOWN! Please start Spring Boot server (./mvnw spring-boot:run) to open this set.');
             }
         }
     </script>
