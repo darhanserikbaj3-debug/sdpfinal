@@ -20,6 +20,14 @@ public class IronEquipment {
         this.shovel = shovel;
     }
 
+    public String getHelmet() { return helmet; }
+    public String getChestplate() { return chestplate; }
+    public String getLeggings() { return leggings; }
+    public String getBoots() { return boots; }
+    public String getSword() { return sword; }
+    public String getPickaxe() { return pickaxe; }
+    public String getShovel() { return shovel; }
+
     @Override
     public String toString() {
         return "Iron Equipment Set:\n" +

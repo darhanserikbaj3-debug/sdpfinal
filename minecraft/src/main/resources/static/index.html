@@ -252,11 +252,13 @@
                 <div class="card-title">IRON</div>
                 <div class="pattern-badge">BUILDER</div>
             </div>
-            <div class="armor-slots">
-                <div class="img-slot"><img src="iron_helmet.jpg" alt="Helmet" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">HELMET.JPG</span></div>
-                <div class="img-slot"><img src="iron_chestplate.jpg" alt="Chestplate" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">CHESTPLATE.JPG</span></div>
-                <div class="img-slot"><img src="iron_leggings.jpg" alt="Leggings" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">LEGGINGS.JPG</span></div>
-                <div class="img-slot"><img src="iron_boots.jpg" alt="Boots" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">BOOTS.JPG</span></div>
+            <div class="full-illustration-slot">
+                <svg width="100" height="140" viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Iron armor set">
+                    <path d="M30 10 H70 V30 H60 V40 H40 V30 H30 Z" fill="#dddddd" stroke="#888888" stroke-width="2"/>
+                    <path d="M20 45 H80 V80 H65 V90 H35 V80 H20 Z" fill="#dddddd" stroke="#888888" stroke-width="2"/>
+                    <path d="M30 92 H70 V125 H55 V105 H45 V125 H30 Z" fill="#dddddd" stroke="#888888" stroke-width="2"/>
+                    <path d="M25 110 H40 V128 H20 V120 Z M60 110 H75 V120 H80 V128 H60 Z" fill="#dddddd" stroke="#888888" stroke-width="2"/>
+                </svg>
             </div>
             <button class="btn-craft" onclick="craftSet('iron')">CRAFT SET</button>
         </div>
@@ -267,11 +269,13 @@
                 <div class="card-title">GOLD</div>
                 <div class="pattern-badge">ADAPTER</div>
             </div>
-            <div class="armor-slots">
-                <div class="img-slot"><img src="gold_helmet.jpg" alt="Helmet" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">HELMET.JPG</span></div>
-                <div class="img-slot"><img src="gold_chestplate.jpg" alt="Chestplate" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">CHESTPLATE.JPG</span></div>
-                <div class="img-slot"><img src="gold_leggings.jpg" alt="Leggings" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">LEGGINGS.JPG</span></div>
-                <div class="img-slot"><img src="gold_boots.jpg" alt="Boots" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">BOOTS.JPG</span></div>
+            <div class="full-illustration-slot">
+                <svg width="100" height="140" viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gold armor set">
+                    <path d="M30 10 H70 V30 H60 V40 H40 V30 H30 Z" fill="#ffaa00" stroke="#aa7700" stroke-width="2"/>
+                    <path d="M20 45 H80 V80 H65 V90 H35 V80 H20 Z" fill="#ffaa00" stroke="#aa7700" stroke-width="2"/>
+                    <path d="M30 92 H70 V125 H55 V105 H45 V125 H30 Z" fill="#ffaa00" stroke="#aa7700" stroke-width="2"/>
+                    <path d="M25 110 H40 V128 H20 V120 Z M60 110 H75 V120 H80 V128 H60 Z" fill="#ffaa00" stroke="#aa7700" stroke-width="2"/>
+                </svg>
             </div>
             <button class="btn-craft" onclick="craftSet('gold')">CRAFT SET</button>
         </div>
@@ -313,9 +317,14 @@
 
     <script>
         async function craftSet(type) {
-            const supportedTypes = ['iron', 'diamond', 'netherite'];
+            const supportedTypes = ['iron', 'gold', 'diamond', 'netherite'];
             if (!supportedTypes.includes(type)) {
                 alert('Set page for ' + type.toUpperCase() + ' is not implemented yet!');
+                return;
+            }
+
+            if (type === 'iron' || type === 'gold') {
+                window.location.href = `${type}.html`;
                 return;
             }
 

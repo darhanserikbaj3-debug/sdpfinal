@@ -1,6 +1,7 @@
 package com.example.sdpfinal.minecraft.builder;
 
 public interface EquipmentBuilder {
+    void reset();
     EquipmentBuilder setHelmet(String helmet);
     EquipmentBuilder setChestplate(String chestplate);
     EquipmentBuilder setLeggings(String leggings);

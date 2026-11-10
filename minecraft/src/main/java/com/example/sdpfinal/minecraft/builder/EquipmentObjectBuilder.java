@@ -5,6 +5,11 @@ public class EquipmentObjectBuilder implements EquipmentBuilder {
     private String sword, pickaxe, shovel;
 
     @Override
+    public void reset() {
+        helmet = chestplate = leggings = boots = sword = pickaxe = shovel = null;
+    }
+
+    @Override
     public EquipmentObjectBuilder setHelmet(String helmet) { this.helmet = helmet; return this; }
     @Override
     public EquipmentObjectBuilder setChestplate(String chestplate) { this.chestplate = chestplate; return this; }
@@ -20,7 +25,8 @@ public class EquipmentObjectBuilder implements EquipmentBuilder {
     public EquipmentObjectBuilder setShovel(String shovel) { this.shovel = shovel; return this; }
 
     public IronEquipment getResult() {
-        if (helmet == null && sword == null) {
+        if (helmet == null && chestplate == null && leggings == null && boots == null
+                && sword == null && pickaxe == null && shovel == null) {
             throw new IllegalStateException("Equipment set cannot be completely empty!");
         }
         return new IronEquipment(helmet, chestplate, leggings, boots, sword, pickaxe, shovel);
