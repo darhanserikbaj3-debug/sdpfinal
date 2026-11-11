@@ -88,6 +88,7 @@
         .cards-row {
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
             gap: 15px;
             padding: 30px 20px;
             max-width: 1400px;
@@ -216,34 +217,34 @@
     </div>
 
     <div class="cards-row">
-        <!-- 1. LEATHER -->
         <div class="card">
             <div class="card-header">
-                <div class="card-title">LEATHER</div>
-                <div class="pattern-badge">FACTORY</div>
+                <div class="card-title">TOOLS</div>
+                <div class="pattern-badge">FACTORY METHOD</div>
             </div>
-            <div class="armor-slots">
-                <div class="img-slot"><img src="leather_helmet.jpg" alt="Helmet" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">HELMET.JPG</span></div>
-                <div class="img-slot"><img src="leather_chestplate.jpg" alt="Chestplate" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">CHESTPLATE.JPG</span></div>
-                <div class="img-slot"><img src="leather_leggings.jpg" alt="Leggings" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">LEGGINGS.JPG</span></div>
-                <div class="img-slot"><img src="leather_boots.jpg" alt="Boots" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">BOOTS.JPG</span></div>
+            <div class="full-illustration-slot">
+                <svg width="100" height="140" viewBox="0 0 100 100" role="img" aria-label="Pickaxe" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M24 12 H72 V20 H80 V44 H68 V30 H54 V22 H24 Z" fill="#e39162" stroke="#66513a" stroke-width="3"/>
+                    <path d="M52 28 L62 38 L23 83 L13 73 Z" fill="#80572f" stroke="#49331e" stroke-width="3"/>
+                </svg>
             </div>
-            <button class="btn-craft" onclick="craftSet('leather')">CRAFT SET</button>
+            <button class="btn-craft" onclick="craftSet('factorymethod')">CRAFT TOOL</button>
         </div>
 
-        <!-- 2. CHAINMAIL -->
         <div class="card">
             <div class="card-header">
-                <div class="card-title">CHAINMAIL</div>
-                <div class="pattern-badge">DECORATOR</div>
+                <div class="card-title">COPPER</div>
+                <div class="pattern-badge">ABSTRACT FACTORY</div>
             </div>
-            <div class="armor-slots">
-                <div class="img-slot"><img src="chainmail_helmet.jpg" alt="Helmet" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">HELMET.JPG</span></div>
-                <div class="img-slot"><img src="chainmail_chestplate.jpg" alt="Chestplate" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">CHESTPLATE.JPG</span></div>
-                <div class="img-slot"><img src="chainmail_leggings.jpg" alt="Leggings" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">LEGGINGS.JPG</span></div>
-                <div class="img-slot"><img src="chainmail_boots.jpg" alt="Boots" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span class="img-slot-placeholder" style="display:none;">BOOTS.JPG</span></div>
+            <div class="full-illustration-slot">
+                <svg width="120" height="160" viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M30 10 H70 V30 H60 V40 H40 V30 H30 Z" fill="#e39162" stroke="#955537" stroke-width="2"/>
+                    <path d="M20 45 H80 V80 H65 V90 H35 V80 H20 Z" fill="#e39162" stroke="#955537" stroke-width="2"/>
+                    <path d="M30 92 H70 V125 H55 V105 H45 V125 H30 Z" fill="#e39162" stroke="#955537" stroke-width="2"/>
+                    <path d="M25 110 H40 V128 H20 V120 Z M60 110 H75 V120 H80 V128 H60 Z" fill="#e39162" stroke="#955537" stroke-width="2"/>
+                </svg>
             </div>
-            <button class="btn-craft" onclick="craftSet('chainmail')">CRAFT SET</button>
+            <button class="btn-craft" onclick="craftSet('abstractfactory')">CRAFT SET</button>
         </div>
 
         <!-- 3. IRON -->
@@ -317,13 +318,13 @@
 
     <script>
         async function craftSet(type) {
-            const supportedTypes = ['iron', 'gold', 'diamond', 'netherite'];
+            const supportedTypes = ['iron', 'gold', 'diamond', 'netherite', 'abstractfactory', 'factorymethod'];
             if (!supportedTypes.includes(type)) {
                 alert('Set page for ' + type.toUpperCase() + ' is not implemented yet!');
                 return;
             }
 
-            if (type === 'iron' || type === 'gold') {
+            if (['iron', 'gold', 'abstractfactory', 'factorymethod'].includes(type)) {
                 window.location.href = `${type}.html`;
                 return;
             }

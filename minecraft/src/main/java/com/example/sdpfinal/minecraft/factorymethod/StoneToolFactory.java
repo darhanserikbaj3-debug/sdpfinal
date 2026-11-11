@@ -2,9 +2,9 @@ package com.example.sdpfinal.minecraft.factorymethod;
 
 import com.example.sdpfinal.minecraft.model.EquipmentItem;
 
-public class StoneToolFactory implements ToolFactory {
+public class StoneToolFactory extends ToolFactory {
     @Override
-    public EquipmentItem createTool() {
-        return new EquipmentItem("Stone Pickaxe", 131, "TOOL", 3);
+    public EquipmentItem createTool(ToolType type) {
+        return new EquipmentItem("Stone " + type.getDisplayName(), 131, "TOOL", type.getResourceCost());
     }
 }
