@@ -1,345 +1,234 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minecraft Equipment Crafter</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --mc-font: 'Press Start 2P', monospace;
-            --mc-bg: #121212;
-            --mc-card-bg: #1f1f1f;
-            --mc-card-border: #333333;
-            --mc-green: #388e3c;
-            --mc-green-hover: #4caf50;
-            --mc-text-white: #ffffff;
-            --mc-text-gray: #aaaaaa;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: var(--mc-bg);
-            color: var(--mc-text-white);
-            font-family: Arial, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        header {
-            background-color: #000000;
-            border-bottom: 2px solid #222;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: var(--mc-font);
-            font-size: 18px;
-            letter-spacing: 2px;
-            color: #fff;
-            text-transform: uppercase;
-        }
-
-        nav a {
-            font-family: var(--mc-font);
-            color: var(--mc-text-gray);
-            text-decoration: none;
-            margin-left: 20px;
-            font-size: 10px;
-            transition: color 0.2s;
-        }
-
-        nav a:hover {
-            color: var(--mc-text-white);
-        }
-
-        .hero {
-            text-align: center;
-            padding: 40px 20px 20px 20px;
-        }
-
-        .hero h1 {
-            font-family: var(--mc-font);
-            font-size: 22px;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            text-shadow: 2px 2px 0px #000;
-        }
-
-        .hero p {
-            font-family: var(--mc-font);
-            font-size: 10px;
-            color: var(--mc-text-gray);
-            line-height: 1.6;
-        }
-
-        .cards-row {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            padding: 30px 20px;
-            max-width: 1400px;
-            margin: 0 auto;
-            width: 100%;
-            overflow-x: auto;
-        }
-
-        .card {
-            background-color: var(--mc-card-bg);
-            border: 2px solid var(--mc-card-border);
-            border-radius: 4px;
-            width: 200px;
-            flex-shrink: 0;
-            display: flex;
-            flex-direction: column;
-            padding: 15px;
-            transition: transform 0.2s, border-color 0.2s;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            border-color: var(--mc-green);
-        }
-
-        .card-header {
-            text-align: center;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 10px;
-        }
-
-        .card-title {
-            font-family: var(--mc-font);
-            font-size: 12px;
-            margin-bottom: 8px;
-            color: #fff;
-        }
-
-        .pattern-badge {
-            font-family: var(--mc-font);
-            font-size: 7px;
-            color: #888;
-            background: #151515;
-            padding: 4px 6px;
-            border-radius: 2px;
-            display: inline-block;
-        }
-
-        .armor-slots {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .img-slot {
-            width: 100%;
-            height: 65px;
-            background-color: #151515;
-            border: 1px dashed #444;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .img-slot img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
-
-        .img-slot-placeholder {
-            font-family: var(--mc-font);
-            font-size: 7px;
-            color: #555;
-            text-transform: uppercase;
-        }
-
-        .full-illustration-slot {
-            width: 100%;
-            height: 290px;
-            background-color: #151515;
-            border: 1px dashed #444;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 15px;
-        }
-
-        .btn-craft {
-            font-family: var(--mc-font);
-            font-size: 9px;
-            background-color: var(--mc-green);
-            color: #fff;
-            border: none;
-            padding: 12px 5px;
-            cursor: pointer;
-            width: 100%;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: auto;
-            transition: background-color 0.2s;
-        }
-
-        .btn-craft:hover {
-            background-color: var(--mc-green-hover);
-        }
-    </style>
-</head>
-<body>
-
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#283520" />
+    <title>Minecraft Workshop</title>
+    <link rel="stylesheet" href="./style.css?v=12" />
+    <script defer src="./app.js?v=12"></script>
+  </head>
+  <body>
     <header>
-        <div class="logo">MINECRAFT</div>
-        <nav>
-            <a href="index.html">CATALOG</a>
-            <a href="#">EQUIPMENT</a>
-            <a href="#">PATTERNS</a>
-        </nav>
+      <a class="brand" href="./"
+        ><span class="creeper" aria-hidden="true"></span
+        ><span>MINECRAFT</span></a
+      >
+      <div class="player-stats">
+        <span title="Experience"
+          ><b class="xp-icon">✦</b> <strong id="experience">—</strong
+          ><small>XP</small></span
+        >
+      </div>
+      <div class="connection">
+        <button
+          id="refresh"
+          class="square"
+          title="Refresh"
+          aria-label="Refresh"
+        >
+          ↻
+        </button>
+      </div>
     </header>
-
-    <div class="hero">
-        <h1>DISCOVER EQUIPMENT SETS</h1>
-        <p>SELECT A MATERIAL TO TRIGGER ITS DESIGN PATTERN</p>
-    </div>
-
-    <div class="cards-row">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">TOOLS</div>
-                <div class="pattern-badge">FACTORY METHOD</div>
-            </div>
-            <div class="full-illustration-slot">
-                <svg width="100" height="140" viewBox="0 0 100 100" role="img" aria-label="Pickaxe" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M24 12 H72 V20 H80 V44 H68 V30 H54 V22 H24 Z" fill="#e39162" stroke="#66513a" stroke-width="3"/>
-                    <path d="M52 28 L62 38 L23 83 L13 73 Z" fill="#80572f" stroke="#49331e" stroke-width="3"/>
-                </svg>
-            </div>
-            <button class="btn-craft" onclick="craftSet('factorymethod')">CRAFT TOOL</button>
+    <main>
+      <section class="hero">
+        <div><h1>Craft. Enchant. Explore.</h1></div>
+        <div class="hero-block" aria-hidden="true">
+          <div class="cube"><i></i><b></b><em></em></div>
         </div>
-
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">COPPER</div>
-                <div class="pattern-badge">ABSTRACT FACTORY</div>
+      </section>
+      <div class="workspace">
+        <div class="main-column">
+          <nav class="tabs" aria-label="Stations">
+            <button class="tab active" data-tab="armor">Armor</button
+            ><button class="tab" data-tab="tools">Tools</button
+            ><button class="tab" data-tab="enchant">Enchanting</button
+            ><button class="tab" data-tab="brew">Potions</button
+            ><button class="tab" data-tab="anvil">Anvil</button>
+          </nav>
+          <section id="armor-panel" class="panel tab-panel">
+            <div class="panel-title">
+              <div>
+                <span class="kicker">CRAFTING TABLE</span>
+                <h2>Armor</h2>
+              </div>
+              <svg class="station-icon" aria-hidden="true">
+                <use href="./assets/items.svg#workbench"></use>
+              </svg>
             </div>
-            <div class="full-illustration-slot">
-                <svg width="120" height="160" viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M30 10 H70 V30 H60 V40 H40 V30 H30 Z" fill="#e39162" stroke="#955537" stroke-width="2"/>
-                    <path d="M20 45 H80 V80 H65 V90 H35 V80 H20 Z" fill="#e39162" stroke="#955537" stroke-width="2"/>
-                    <path d="M30 92 H70 V125 H55 V105 H45 V125 H30 Z" fill="#e39162" stroke="#955537" stroke-width="2"/>
-                    <path d="M25 110 H40 V128 H20 V120 Z M60 110 H75 V120 H80 V128 H60 Z" fill="#e39162" stroke="#955537" stroke-width="2"/>
-                </svg>
+            <form id="armor-form">
+              <label
+                >Material<select id="armor-material" required></select
+              ></label>
+              <div id="armor-options" class="craft-grid"></div>
+              <div class="craft-footer">
+                <div>
+                  <span class="subtle">Cost</span>
+                  <div id="armor-cost" class="chips"></div>
+                </div>
+                <button class="primary" type="submit">Craft armor</button>
+              </div>
+            </form>
+          </section>
+          <section id="tools-panel" class="panel tab-panel" hidden>
+            <div class="panel-title">
+              <div>
+                <span class="kicker">CRAFTING TABLE</span>
+                <h2>Tools</h2>
+              </div>
+              <svg class="station-icon" aria-hidden="true">
+                <use href="./assets/items.svg#pickaxe"></use>
+              </svg>
             </div>
-            <button class="btn-craft" onclick="craftSet('abstractfactory')">CRAFT SET</button>
+            <form id="tools-form">
+              <label
+                >Material<select id="tool-material" required></select
+              ></label>
+              <div id="tool-options" class="craft-grid tools-grid"></div>
+              <div class="craft-footer">
+                <div>
+                  <span class="subtle">Cost</span>
+                  <div id="tool-cost" class="chips"></div>
+                </div>
+                <button class="primary" type="submit">Craft tool</button>
+              </div>
+            </form>
+          </section>
+          <section id="enchant-panel" class="panel tab-panel" hidden>
+            <div class="panel-title">
+              <div>
+                <span class="kicker">ENCHANTING TABLE</span>
+                <h2>Enchant an item</h2>
+              </div>
+              <svg class="station-icon" aria-hidden="true">
+                <use href="./assets/items.svg#enchanting"></use>
+              </svg>
+            </div>
+            <form id="enchant-form">
+              <label>Item<select id="enchant-item" required></select></label>
+              <div class="form-row">
+                <label
+                  >Enchantment<select id="enchantment" required></select></label
+                ><label
+                  >Level<select id="enchant-level" required></select
+                ></label>
+              </div>
+              <div id="enchant-hint" class="recipe-note"></div>
+              <div class="actions">
+                <button type="button" class="secondary" id="enchant-preview">
+                  Cost</button
+                ><button type="submit" class="primary">Enchant</button>
+              </div>
+            </form>
+            <div id="enchant-result" class="preview" hidden></div>
+          </section>
+          <section id="brew-panel" class="panel tab-panel" hidden>
+            <div class="panel-title">
+              <div>
+                <span class="kicker">BREWING STAND</span>
+                <h2>Brew a potion</h2>
+              </div>
+              <svg class="station-icon" aria-hidden="true">
+                <use href="./assets/items.svg#potion"></use>
+              </svg>
+            </div>
+            <form id="brew-form">
+              <div id="potion-options" class="craft-grid tools-grid"></div>
+              <label
+                >Modifier<select id="brew-modifier" required></select
+              ></label>
+              <div class="actions">
+                <button type="button" class="secondary" id="brew-preview">
+                  Ingredients</button
+                ><button type="submit" class="primary">Brew potion</button>
+              </div>
+            </form>
+            <div id="brew-result" class="preview" hidden></div>
+          </section>
+          <section id="anvil-panel" class="panel tab-panel" hidden>
+            <div class="panel-title">
+              <div>
+                <span class="kicker">ANVIL</span>
+                <h2>Repair & combine</h2>
+              </div>
+              <svg class="station-icon" aria-hidden="true">
+                <use href="./assets/items.svg#anvil"></use>
+              </svg>
+            </div>
+            <form id="anvil-form">
+              <div class="anvil-slots">
+                <span class="slot-decoration">1</span
+                ><label
+                  >Target item<select id="anvil-item" required></select
+                ></label>
+              </div>
+              <div class="form-row">
+                <label
+                  >Operation<select id="anvil-mode">
+                    <option value="material">Repair with material</option>
+                    <option value="combine">Combine item or book</option>
+                    <option value="rename">Rename only</option>
+                  </select></label
+                ><label id="material-field"
+                  >Units<input
+                    id="anvil-units"
+                    type="number"
+                    value="1"
+                    min="1"
+                    max="64"
+                /></label>
+              </div>
+              <label id="sacrifice-field" hidden
+                >Second item / book<select id="anvil-sacrifice"></select></label
+              ><label
+                >New name <span class="subtle">/ optional</span
+                ><input
+                  id="anvil-name"
+                  type="text"
+                  maxlength="50"
+                  placeholder="e.g. Trusty Pickaxe"
+                  autocomplete="off"
+              /></label>
+              <div class="actions">
+                <button type="button" class="secondary" id="anvil-preview">
+                  Preview</button
+                ><button type="submit" class="primary">Apply</button>
+              </div>
+            </form>
+            <div id="anvil-result" class="preview" hidden></div>
+          </section>
+          <section class="status-panel" aria-label="Action result">
+            <div id="status" role="status" aria-live="polite">
+              Loading workshop…
+            </div>
+            <div id="changes" class="changes"></div>
+          </section>
+          <section class="panel resource-panel">
+            <div class="section-head">
+              <h2>Resources</h2>
+              <span class="subtle">YOUR SUPPLIES</span>
+            </div>
+            <div id="resources" class="resource-grid"></div>
+          </section>
         </div>
-
-        <!-- 3. IRON -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">IRON</div>
-                <div class="pattern-badge">BUILDER</div>
+        <aside>
+          <section class="panel inventory-panel">
+            <div class="section-head">
+              <h2>Inventory</h2>
+              <span id="item-count" class="counter">0</span>
             </div>
-            <div class="full-illustration-slot">
-                <svg width="100" height="140" viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Iron armor set">
-                    <path d="M30 10 H70 V30 H60 V40 H40 V30 H30 Z" fill="#dddddd" stroke="#888888" stroke-width="2"/>
-                    <path d="M20 45 H80 V80 H65 V90 H35 V80 H20 Z" fill="#dddddd" stroke="#888888" stroke-width="2"/>
-                    <path d="M30 92 H70 V125 H55 V105 H45 V125 H30 Z" fill="#dddddd" stroke="#888888" stroke-width="2"/>
-                    <path d="M25 110 H40 V128 H20 V120 Z M60 110 H75 V120 H80 V128 H60 Z" fill="#dddddd" stroke="#888888" stroke-width="2"/>
-                </svg>
+            <div id="effects" class="effects"></div>
+            <div id="inventory" class="inventory">
+              <p class="subtle">Loading…</p>
             </div>
-            <button class="btn-craft" onclick="craftSet('iron')">CRAFT SET</button>
-        </div>
-
-        <!-- 4. GOLD -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">GOLD</div>
-                <div class="pattern-badge">ADAPTER</div>
-            </div>
-            <div class="full-illustration-slot">
-                <svg width="100" height="140" viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gold armor set">
-                    <path d="M30 10 H70 V30 H60 V40 H40 V30 H30 Z" fill="#ffaa00" stroke="#aa7700" stroke-width="2"/>
-                    <path d="M20 45 H80 V80 H65 V90 H35 V80 H20 Z" fill="#ffaa00" stroke="#aa7700" stroke-width="2"/>
-                    <path d="M30 92 H70 V125 H55 V105 H45 V125 H30 Z" fill="#ffaa00" stroke="#aa7700" stroke-width="2"/>
-                    <path d="M25 110 H40 V128 H20 V120 Z M60 110 H75 V120 H80 V128 H60 Z" fill="#ffaa00" stroke="#aa7700" stroke-width="2"/>
-                </svg>
-            </div>
-            <button class="btn-craft" onclick="craftSet('gold')">CRAFT SET</button>
-        </div>
-
-        <!-- 5. DIAMOND -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">DIAMOND</div>
-                <div class="pattern-badge">FACADE</div>
-            </div>
-            <div class="full-illustration-slot">
-                <svg width="100" height="140" viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M30 10 H70 V30 H60 V40 H40 V30 H30 Z" fill="#55ffff" stroke="#00aaaa" stroke-width="2"/>
-                    <path d="M20 45 H80 V80 H65 V90 H35 V80 H20 Z" fill="#55ffff" stroke="#00aaaa" stroke-width="2"/>
-                    <path d="M30 92 H70 V125 H55 V105 H45 V125 H30 Z" fill="#55ffff" stroke="#00aaaa" stroke-width="2"/>
-                    <path d="M25 110 H40 V128 H20 V120 Z M60 110 H75 V120 H80 V128 H60 Z" fill="#55ffff" stroke="#00aaaa" stroke-width="2"/>
-                </svg>
-            </div>
-            <button class="btn-craft" onclick="craftSet('diamond')">CRAFT SET</button>
-        </div>
-
-        <!-- 6. NETHERITE -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">NETHERITE</div>
-                <div class="pattern-badge">STRATEGY</div>
-            </div>
-            <div class="full-illustration-slot">
-                <svg width="100" height="140" viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M30 10 H70 V30 H60 V40 H40 V30 H30 Z" fill="#4a3b40" stroke="#2b2024" stroke-width="2"/>
-                    <path d="M20 45 H80 V80 H65 V90 H35 V80 H20 Z" fill="#4a3b40" stroke="#2b2024" stroke-width="2"/>
-                    <path d="M30 92 H70 V125 H55 V105 H45 V125 H30 Z" fill="#4a3b40" stroke="#2b2024" stroke-width="2"/>
-                    <path d="M25 110 H40 V128 H20 V120 Z M60 110 H75 V120 H80 V128 H60 Z" fill="#4a3b40" stroke="#2b2024" stroke-width="2"/>
-                </svg>
-            </div>
-            <button class="btn-craft" onclick="craftSet('netherite')">CRAFT SET</button>
-        </div>
-    </div>
-
-    <script>
-        async function craftSet(type) {
-            const supportedTypes = ['iron', 'gold', 'diamond', 'netherite', 'abstractfactory', 'factorymethod'];
-            if (!supportedTypes.includes(type)) {
-                alert('Set page for ' + type.toUpperCase() + ' is not implemented yet!');
-                return;
-            }
-
-            if (['iron', 'gold', 'abstractfactory', 'factorymethod'].includes(type)) {
-                window.location.href = `${type}.html`;
-                return;
-            }
-
-            try {
-                const response = await fetch(`http://localhost:8080/api/equipment/${type}`);
-                if (response.ok) {
-                    window.location.href = `${type}.html`;
-                } else {
-                    alert('Server error: Could not fetch data from backend!');
-                }
-            } catch (err) {
-                alert('SERVER IS DOWN! Please start Spring Boot server (./mvnw spring-boot:run) to open this set.');
-            }
-        }
-    </script>
-</body>
+            <button id="reset" class="text-button">Start over</button>
+          </section>
+        </aside>
+      </div>
+    </main>
+    <footer>
+      <span>MINECRAFT WORKSHOP</span><span>READY FOR ADVENTURE</span>
+    </footer>
+  </body>
 </html>
